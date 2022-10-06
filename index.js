@@ -118,4 +118,6 @@ function addUser(res, name, email, hash) {
     })
 }
 
-app.listen(port, () => {})
+app.listen(port, () => {
+    console.log(`Port : ${port}`);
+})
