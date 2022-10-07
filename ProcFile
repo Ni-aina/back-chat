@@ -1,3 +1,1 @@
-npm: rm node_module/
-npm: update
 web: nodemon index.js
