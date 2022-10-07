@@ -1,3 +1,3 @@
-web: rm -rf node_modules/
-web: npm update
+npm: rm node_module/
+npm: update
 web: nodemon index.js
