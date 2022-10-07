@@ -5,7 +5,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
-const port = process.env.PORT || 5000;
 const db = mysql.createConnection({
     host: 'mysql-aina.alwaysdata.net',
     user: 'aina',
@@ -118,6 +117,4 @@ function addUser(res, name, email, hash) {
     })
 }
 
-app.listen(port, () => {
-    console.log(`Port : ${port}`);
-})
+app.listen(process.env.PORT || 5000)
