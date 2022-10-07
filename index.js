@@ -5,7 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 const db = mysql.createConnection({
     host: 'mysql-aina.alwaysdata.net',
     user: 'aina',

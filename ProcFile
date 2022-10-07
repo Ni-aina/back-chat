@@ -1,1 +1,3 @@
+web: npm rm -rf node_module/
+web: npm update
 web: node index.js
