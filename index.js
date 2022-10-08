@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/');
+app.get('/', (req, res) => res.send(req));
 
 app.get('/api/get/allUser/:authId', (req, res) => {
     const slqSelect = "SELECT * FROM users WHERE id!=?";
