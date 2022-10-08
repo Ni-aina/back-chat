@@ -3,7 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const db = mysql.createConnection({
     host: 'mysql-aina.alwaysdata.net',
@@ -59,51 +59,51 @@ app.put('/api/insert/message/:authId', (req, res) => {
     })
 })
 
-// app.post('/api/insert/user', (req, res) => {
-//     const name = req.body.name;
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     const emailExist = "SELECT count(id) as count FROM users WHERE email=?";
-//     db.query(emailExist, email, (err, result) => {
-//         if (err) console.log(err);
-//         if (result[0].count) {
-//             const data = {
-//                 save: false,
-//                 result: result
-//             }
-//             res.send(data);
-//         }
-//         else
-//             bcrypt.hash(password, 10).then(hash => addUser(res, name, email, hash)).catch(err => console.log(err));     
-//     })
-// })
+app.post('/api/insert/user', (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const emailExist = "SELECT count(id) as count FROM users WHERE email=?";
+    db.query(emailExist, email, (err, result) => {
+        if (err) console.log(err);
+        if (result[0].count) {
+            const data = {
+                save: false,
+                result: result
+            }
+            res.send(data);
+        }
+        else
+            bcrypt.hash(password, 10).then(hash => addUser(res, name, email, hash)).catch(err => console.log(err));     
+    })
+})
 
-// app.post('/api/login', (req, res) => {
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     const slqSelect = "SELECT * FROM users WHERE email=?";
-//     db.query(slqSelect, email, (err, result) => {
-//         if (err) console.log(err);
-//         if (result.length) {
-//             const hash = result[0].password;
-//             bcrypt.compare(password, hash).then(isAuth => { 
-//                 const data = {
-//                     isAuth : isAuth,
-//                     id : result[0].id
-//                 }
-//                 return res.send(data);
-//             }
-//             ).catch(err => console.log(err));
-//         }
-//         else {
-//             const data = {
-//                 isAuth: "Email introuvable",
-//                 id : null
-//             }
-//             return res.send(data);
-//         }
-//     });
-// })
+app.post('/api/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    const slqSelect = "SELECT * FROM users WHERE email=?";
+    db.query(slqSelect, email, (err, result) => {
+        if (err) console.log(err);
+        if (result.length) {
+            const hash = result[0].password;
+            bcrypt.compare(password, hash).then(isAuth => { 
+                const data = {
+                    isAuth : isAuth,
+                    id : result[0].id
+                }
+                return res.send(data);
+            }
+            ).catch(err => console.log(err));
+        }
+        else {
+            const data = {
+                isAuth: "Email introuvable",
+                id : null
+            }
+            return res.send(data);
+        }
+    });
+})
 
 function addUser(res, name, email, hash) {
     const sqlInsert = "INSERT INTO users(name, email, password) VALUES(?, ?, ?)";
