@@ -16,9 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', (req, res) => {
-    res.send("back end chat");
-})
+app.get('/');
 
 app.get('/api/get/allUser/:authId', (req, res) => {
     const slqSelect = "SELECT * FROM users WHERE id!=?";
