@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/', (req, res) => res.send("Back end react-chat"));
 
 app.get('/api/get/allUser/:authId', (req, res) => {
-    const slqSelect = "SELECT * FROM users WHERE id!=?";
+    const slqSelect = "SELECT DISTINCT(users.id) as id, users.name as name FROM users, destinations WHERE users.id!=? AND" +
+    "users.id=destinations.user_id ORDER BY destinations.id DESC"
     db.query(slqSelect, req.params.authId, (err, result) => {
         if (err) console.log(err);
         res.send(result);
