@@ -16,11 +16,12 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', (req, res) => res.send("Back end react-chat"));
+app.get('/', (req, res) => {
+    res.send("Server");
+});
 
 app.get('/api/get/allUser/:authId', (req, res) => {
-    const slqSelect = "SELECT DISTINCT(users.id) as id, users.name as name FROM users, destinations WHERE users.id!=? AND" +
-    "users.id=destinations.user_id ORDER BY destinations.id DESC"
+    const slqSelect = "SELECT DISTINCT(users.id) as id, users.name as name FROM users, messages, destinations WHERE messages.user_id=? AND users.id=destinations.user_id ORDER BY destinations.id DESC";
     db.query(slqSelect, req.params.authId, (err, result) => {
         if (err) console.log(err);
         res.send(result);
