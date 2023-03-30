@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'saina_chat'
+    database: 'aina_chat'
 })
 
 app.use(cors());
