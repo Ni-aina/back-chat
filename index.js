@@ -6,10 +6,10 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 
 const db = mysql.createConnection({
-    host: 'mysql-aina.alwaysdata.net',
-    user: 'aina',
-    password: 'wxyzopqrstabcghijkl',
-    database: 'aina_chat'
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'saina_chat'
 })
 
 app.use(cors());
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
-    res.send("Server");
+    res.send("node server");
 });
 
 app.get('/api/get/allUser/:authId', (req, res) => {
