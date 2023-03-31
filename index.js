@@ -21,8 +21,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/get/allUser/:authId', (req, res) => {
-    const slqSelect = "SELECT DISTINCT(users.id) as id, users.name as name FROM users, messages, destinations WHERE messages.user_id=3 AND users.id=destinations.user_id";
-    db.query(slqSelect, (err, result) => {
+    const authId = req.params.authId;
+    const slqSelect = "SELECT id, name FROM users WHERE id!=?";
+    db.query(slqSelect, authId, (err, result) => {
         if (err) console.log(err);
         res.send(result);
     })
