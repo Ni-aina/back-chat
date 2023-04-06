@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
+    host: 'mysql-aina.alwaysdata.net',
+    user: 'aina',
+    password: 'KdF9XFLn2qjm2Lc',
     database: 'aina_chat'
 })
 
@@ -17,7 +17,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
-    res.send("node server");
+    const slqSelect = "SELECT * FROM users";
+    db.query(slqSelect, (err, result) => {
+        if (err) console.log(err);
+        res.send(result);
+    })
 });
 
 app.get('/api/get/allUser/:authId', (req, res) => {
